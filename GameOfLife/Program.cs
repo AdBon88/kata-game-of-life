@@ -8,21 +8,24 @@ namespace GameOfLife
         static void Main(string[] args)
         {
             Console.WriteLine(Output.Welcome);
-            Console.WriteLine(Output.PromptForGridLength);
             
-            //TODO refactor this so that we take the dimensions with 1 prompt
-            int length;
-            while (!InputValidator.TryParseGridDimension(Console.ReadLine(), out length))
+            Console.Write(Output.PromptForGridLength);
+            var length = GetGridDimensionFromUser();
+            
+            Console.Write(Output.PromptForGridHeight);
+            var height = GetGridDimensionFromUser();
+            
+            Console.WriteLine(Output.GridHeader);
+        }
+
+        private static int GetGridDimensionFromUser()
+        {
+            int dimension;
+            while (!InputValidator.TryParseGridDimension(Console.ReadLine(), out dimension))
             {
                 Console.WriteLine(Output.InvalidDimension);
             }
-            Console.WriteLine(Output.PromptForGridHeight);
-            int height;
-            while (!InputValidator.TryParseGridDimension(Console.ReadLine(), out height))
-            {
-                Console.WriteLine(Output.InvalidDimension);
-            }
-            Console.WriteLine(Output.GeneratingGrid);
+            return dimension;
         }
     }
 }

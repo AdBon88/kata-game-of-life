@@ -5,14 +5,14 @@ namespace GameOfLife
 {
     public static class Output
     {
-        public const char DeadCellChar = '.';
-        public const char LiveCellChar = '#';
-        
+        private const char LiveCellChar = '#';
+        private const char DeadCellChar = '.';
+
         public const string Welcome = "Welcome to the Game of Life!";
         public const string PromptForGridLength = "Please specify the grid length: ";
         public const string PromptForGridHeight = "Please specify the grid height: ";
         public const string InvalidDimension = "Invalid input! Please enter a positive integer: ";
-        public const string GeneratingGrid = "Generating grid...";
+        public const string GridHeader = "Current grid: ";
 
         public static string BoardState(GameGrid grid)
         {
