@@ -15,7 +15,7 @@ namespace GameOfLife.Tests
             var grid = new GameGrid(3,3);
             grid.SetCellAliveAtCoords(cellCoords, true);
         
-            var actual = Output.BoardState(grid);
+            var actual = Output.GridState(grid);
             Assert.Equal(expectedOutput, actual);
         }
     }

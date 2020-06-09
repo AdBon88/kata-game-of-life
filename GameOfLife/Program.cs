@@ -5,7 +5,7 @@ namespace GameOfLife
 {
     class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine(Output.Welcome);
             
@@ -15,7 +15,7 @@ namespace GameOfLife
             Console.Write(Output.PromptForGridHeight);
             var height = GetGridDimensionFromUser();
             
-            Console.WriteLine(Output.GridHeader);
+            var grid = new GameGrid(length, height);
         }
 
         private static int GetGridDimensionFromUser()
@@ -26,6 +26,13 @@ namespace GameOfLife
                 Console.WriteLine(Output.InvalidDimension);
             }
             return dimension;
+        }
+
+        private static void ToggleActiveStartingCells(GameGrid grid)
+        {
+            Console.WriteLine(Output.GridHeader);
+            Console.WriteLine(Output.GridState(grid));
+            Console.Write(Output.PromptForNextCellToToggleActive);
         }
     }
 }
