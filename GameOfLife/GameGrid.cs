@@ -5,9 +5,14 @@ namespace GameOfLife
 {
     public class GameGrid
     {
+        public int Length { get; }
+        public int Height { get; }
         public Cell[,] Cells { get; }
         public GameGrid(int length, int height)
         {
+            Length = length;
+            Height = height;
+            
             Cells = new Cell[length,height];
             for (var y = 0; y < height; y++)
             {

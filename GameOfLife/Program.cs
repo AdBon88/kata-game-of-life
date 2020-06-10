@@ -17,6 +17,8 @@ namespace GameOfLife
             
             var grid = new GameGrid(length, height);
             SetUpGridStartingState(grid);
+            
+            var game = new Game(grid);
         }
 
         private static int GetGridDimensionFromUser()
@@ -36,7 +38,7 @@ namespace GameOfLife
             string nextInput;
             do
             {
-                nextInput = getNextCoordsFromUser()
+                nextInput = getNextCoordsFromUser(grid);
                 if (nextInput == "") continue;
                 if (InputValidator.TryParseCoords(nextInput, grid, out var cellCoordToToggle))
                 {
@@ -50,7 +52,7 @@ namespace GameOfLife
             } while (nextInput != "");
         }
 
-        private static string getNextCoordsFromUser()
+        private static string getNextCoordsFromUser(GameGrid grid)
         {
             Console.WriteLine(Output.GridHeader);
             Console.WriteLine();

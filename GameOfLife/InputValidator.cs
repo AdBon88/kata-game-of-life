@@ -32,16 +32,13 @@ namespace GameOfLife
 
         private static bool coordsAreValid(int[]coords, GameGrid grid)
         {
-            var gridLength = grid.Cells.GetLength(0);
-            var gridHeight = grid.Cells.GetLength(1);
-            
             var hasCountOfTwo = coords.Length == 2;
             var areGreaterThanZero = coords.All(i => i > 0);
             bool areWithinBounds;
             
             if (hasCountOfTwo)
             {
-                areWithinBounds = coords[0] <= gridLength && coords[1] <= gridHeight;
+                areWithinBounds = coords[0] <= grid.Length && coords[1] <= grid.Height;
             }
             else
             {

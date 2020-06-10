@@ -7,7 +7,6 @@ namespace GameOfLife
     {
         private const string LiveCellString = "#";
         private const string DeadCellString = ".";
-
         public const string Welcome = "Welcome to the Game of Life!";
         public const string PromptForGridLength = "Please specify the grid length: ";
         public const string PromptForGridHeight = "Please specify the grid height: ";
@@ -21,14 +20,12 @@ namespace GameOfLife
 
         public static string GridState(GameGrid grid)
         {
-            var length = grid.Cells.GetLength(0);
-            var height = grid.Cells.GetLength(1);
             var output = "";
             
-            for (var y = 1; y <= height; y++)
+            for (var y = 1; y <= grid.Height; y++)
             {
                 var row = "";
-                for (var x = 1; x <= length; x++)
+                for (var x = 1; x <= grid.Length; x++)
                 {
                     row += grid.CellIsAliveAtCoords(new[] {x, y}) ? LiveCellString : DeadCellString;
                 }
