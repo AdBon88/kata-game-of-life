@@ -19,16 +19,36 @@ namespace GameOfLife
         public static bool TryParseCoords(string input, GameGrid grid, out int[] coords)
         {
             var stringCoords = input.Split(',');
-            coords = Array.ConvertAll(stringCoords, s=> int.TryParse(s, out var coord) ? coord : -1);
-
-            return coordsAreValid(coords, grid);
+           
+            coords = Array.ConvertAll(stringCoords, stringNum=> int.TryParse(stringNum, out var coord) ? coord : -1);
+            
+            if (coordsAreValid(coords, grid))
+            {
+                return true;
+            }
+            coords = new[] {-1};
+            return false;
         }
 
         private static bool coordsAreValid(int[]coords, GameGrid grid)
         {
             var gridLength = grid.Cells.GetLength(0);
             var gridHeight = grid.Cells.GetLength(1);
-            return coords.Length == 2 && coords[0] < gridLength && coords[1] < gridHeight && !coords.Contains(-1);
+            
+            var hasCountOfTwo = coords.Length == 2;
+            var areGreaterThanZero = coords.All(i => i > 0);
+            bool areWithinBounds;
+            
+            if (hasCountOfTwo)
+            {
+                areWithinBounds = coords[0] <= gridLength && coords[1] <= gridHeight;
+            }
+            else
+            {
+                areWithinBounds = false;
+            }
+
+            return hasCountOfTwo && areGreaterThanZero && areWithinBounds;
         }
     }
 }

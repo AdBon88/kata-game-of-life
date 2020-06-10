@@ -28,19 +28,22 @@ namespace GameOfLife.Tests
         [InlineData("1,1", new[]{1,1})]
         [InlineData("2,3", new []{2,3})]
         [InlineData("3,3", new []{3,3})]
-        public void ShouldParseCoordsIfValidInput(string input, int[] expectedCoords)
+        public void ShouldParseValidCoords(string input, int[] expectedCoords)
         {
             var grid = new GameGrid(3,3);
-            InputValidator.TryParseCoords(input, grid, out var actualCoords);
+            Assert.True(InputValidator.TryParseCoords(input, grid, out var actualCoords));
             Assert.Equal(expectedCoords, actualCoords);
         }
         
         [Theory]
         [InlineData("3,4")]
-        [InlineData("2,2,1")]
         [InlineData("4,3")]
+        [InlineData("2,2,1")]
         [InlineData("a,3")]
-        public void CoordsLessThan1_OutOfBounds_NonNumbersAreInvalid(string input)
+        [InlineData("-1,-1")]
+        [InlineData("0,0")]
+        [InlineData("2")]
+        public void CoordsLessThan1_OutOfBounds_NonNumbers_CoordCountNot2_AreInvalid(string input)
         {
             var grid = new GameGrid(3,3);
            

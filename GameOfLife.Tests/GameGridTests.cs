@@ -48,6 +48,14 @@ namespace GameOfLife.Tests
             Assert.True(grid.CellIsAliveAtCoords(new[]{2,2}));
         }
         
-
+        [Fact]
+        public void CanToggleCellAliveOrDeadAtGivenCoords()
+        {
+            var grid = new GameGrid(3,3);
+            grid.ToggleCellLifeStatusAtCoords(new[] {2, 2});
+            Assert.True(grid.CellIsAliveAtCoords(new[]{2,2}));
+            grid.ToggleCellLifeStatusAtCoords(new[] {2, 2});
+            Assert.False(grid.CellIsAliveAtCoords(new[]{2,2}));
+        }
     }
 }

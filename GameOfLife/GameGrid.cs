@@ -27,5 +27,10 @@ namespace GameOfLife
         {
             return Cells[coords[0] - 1, coords[1] - 1].isAlive;
         }
+
+        public void ToggleCellLifeStatusAtCoords(int[] coords)
+        {
+            SetCellAliveAtCoords(coords, !CellIsAliveAtCoords(coords));
+        }
     }
 }
