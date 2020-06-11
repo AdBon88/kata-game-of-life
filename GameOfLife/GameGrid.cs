@@ -39,33 +39,18 @@ namespace GameOfLife
         {
             SetCellAliveAtCoords(coords, !CellIsAliveAtCoords(coords));
         }
-        
-        public List<int[]> GetNeighbourCoordsOf(int[] cellCoords)
-        {
-            const int xIndex = 0;
-            const int yIndex = 1;
-            var adjacentCoords = new List<int[]>();
 
-            for (var y = -1; y <= 1; y++)
+        public Cell[,] CloneCells()
+        {
+            var cells = new Cell[Length,Height];
+            for (var y = 0; y < Height; y++)
             {
-                for (var x = -1; x <= 1; x++)
+                for (var x = 0; x < Length; x++)
                 {
-                    var isCurrentCellCoords = x == 0 && y == 0;
-                    if (isCurrentCellCoords ) continue;
-                    adjacentCoords.Add(new[]{cellCoords[xIndex] + x, cellCoords[yIndex] + y});
+                    cells[x, y] = new Cell {isAlive = Cells[x, y].isAlive};
                 }
             }
-            
-            return adjacentCoords.Where(CoordsAreWithinBounds).ToList();
-        }
-
-        private bool CoordsAreWithinBounds(int[] coords)
-        {
-            const int xIndex = 0;
-            const int yIndex = 1;
-            
-            return coords[xIndex] > 0 && coords[xIndex] <= Length && 
-                   coords[yIndex] > 0 && coords[yIndex] <= Height;
+            return cells;
         }
     }
 }

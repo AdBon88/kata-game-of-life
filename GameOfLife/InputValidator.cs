@@ -34,15 +34,11 @@ namespace GameOfLife
         {
             var hasCountOfTwo = coords.Length == 2;
             var areGreaterThanZero = coords.All(i => i > 0);
-            bool areWithinBounds;
+            var areWithinBounds = false;
             
             if (hasCountOfTwo)
             {
                 areWithinBounds = coords[0] <= grid.Length && coords[1] <= grid.Height;
-            }
-            else
-            {
-                areWithinBounds = false;
             }
 
             return hasCountOfTwo && areGreaterThanZero && areWithinBounds;
