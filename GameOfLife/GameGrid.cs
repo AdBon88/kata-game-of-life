@@ -9,7 +9,7 @@ namespace GameOfLife
     {
         public int Length { get; }
         public int Height { get; }
-        public Cell[,] Cells { get; }
+        public Cell[,] Cells { get; } //TODO this is the result of TDD. near the beginning, it was the simplest code to pass the test. The cost/benefit just wasnt there to remove the array and use say, an iEnumerable and query with linq.
         public GameGrid(int length, int height)
         {
             Length = length;
@@ -55,6 +55,37 @@ namespace GameOfLife
                 }
             }
             return gridCopy;
+        }
+        
+        //TODO decided to put these here. Reason being I want to hide the implementation of how the indexes work from the other classes. Other classes just care about 
+        //providing coords and getting a results!
+        public List<int[]> FindNeighbourCoordsOf(int[] cellCoords)
+        {
+            const int xIndex = 0;
+            const int yIndex = 1;
+            var adjacentCoords = new List<int[]>();
+
+            for (var y = -1; y <= 1; y++)
+            {
+                for (var x = -1; x <= 1; x++)
+                {
+                    var isCurrentCellCoords = x == 0 && y == 0;
+                    if (isCurrentCellCoords ) continue;
+                    adjacentCoords.Add(new[]{cellCoords[xIndex] + x, cellCoords[yIndex] + y});
+                }
+            }
+            
+            return adjacentCoords.Where(CoordsAreWithinBounds).ToList();
+        }
+
+        //TODO previous loop will generate coords that are off the grid. Need to filter those out!
+        private bool CoordsAreWithinBounds(int[] coords)
+        {
+            const int xIndex = 0;
+            const int yIndex = 1;
+            
+            return coords[xIndex] > 0 && coords[xIndex] <= Length && 
+                   coords[yIndex] > 0 && coords[yIndex] <= Height;
         }
     }
 }
