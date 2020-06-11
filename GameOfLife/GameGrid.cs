@@ -40,17 +40,21 @@ namespace GameOfLife
             SetCellAliveAtCoords(coords, !CellIsAliveAtCoords(coords));
         }
 
-        public Cell[,] CloneCells()
+        //TODO needed to be able to copy the method otherwise my Cell Transformer wouldn't work, becuase it loops through all cells,
+        // and mutates as it goes, causing subsequent rule applications to not work as they are working with a different grid state on each application.
+        public GameGrid DeepCopy()
         {
-            var cells = new Cell[Length,Height];
+            var gridCopy = new GameGrid(Length, Height);
+            
+            //TODO did this loop because I didn't want the entire 2d cell array to have a setter. Otherwise other classes could break the implementation.
             for (var y = 0; y < Height; y++)
             {
                 for (var x = 0; x < Length; x++)
                 {
-                    cells[x, y] = new Cell {isAlive = Cells[x, y].isAlive};
+                    gridCopy.Cells[x, y] = new Cell {isAlive = Cells[x, y].isAlive};
                 }
             }
-            return cells;
+            return gridCopy;
         }
     }
 }

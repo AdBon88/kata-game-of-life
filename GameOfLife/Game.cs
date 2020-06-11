@@ -13,23 +13,24 @@ namespace GameOfLife
 
         public void ProgressTime()
         {
-           // var gridCopy = _
+            var gridCopy = _grid.DeepCopy();
             for (var y = 1; y <= _grid.Height; y++)
             {
                 for (var x = 1; x <= _grid.Length; x++)
                 {
                     var currentCellCoords = new[] {x, y};
                     var neighbourCoords = FindNeighbourCoordsOf(currentCellCoords);
-                    ApplyRules(currentCellCoords, neighbourCoords);
+                    ApplyRules(currentCellCoords, neighbourCoords, gridCopy);
                 }
             }
         }
 
-        private void ApplyRules(int[] currentCellCoords, List<int[]> neighbourCoords)
+        private void ApplyRules(int[] currentCellCoords, List<int[]> neighbourCoords, GameGrid gridCopy)
         {
-            var liveNeighbourCellCount = neighbourCoords.Count(coord => _grid.CellIsAliveAtCoords(coord));
-
-            if (_grid.CellIsAliveAtCoords(currentCellCoords))
+            
+            var liveNeighbourCellCount = neighbourCoords.Count(gridCopy.CellIsAliveAtCoords);
+                
+            if (gridCopy.CellIsAliveAtCoords(currentCellCoords))
             {
                 if (liveNeighbourCellCount < 2)
                     _grid.SetCellAliveAtCoords(currentCellCoords, false);
