@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace GameOfLife
 {
+    //TODO used output classed to keep all strings in one place, and to be able to test variable output is how we expected.
     public static class Output
     {
         private const string LiveCellString = "#";

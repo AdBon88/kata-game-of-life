@@ -32,7 +32,7 @@ namespace GameOfLife
                 
             if (gridCopy.CellIsAliveAtCoords(currentCellCoords))
             {
-                if (liveNeighbourCellCount < 2)
+                if (liveNeighbourCellCount < 2 || liveNeighbourCellCount > 3)
                     _grid.SetCellAliveAtCoords(currentCellCoords, false);
             }
             else
