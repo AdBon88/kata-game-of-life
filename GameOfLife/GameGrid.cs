@@ -55,9 +55,17 @@ namespace GameOfLife
                     adjacentCoords.Add(new[]{cellCoords[xIndex] + x, cellCoords[yIndex] + y});
                 }
             }
+            
+            return adjacentCoords.Where(CoordsAreWithinBounds).ToList();
+        }
 
-            return adjacentCoords.Where(coord => coord[xIndex] > 0 && coord[xIndex] <= Length && 
-                                                 coord[yIndex] > 0 && coord[yIndex] <= Height).ToList();
+        private bool CoordsAreWithinBounds(int[] coords)
+        {
+            const int xIndex = 0;
+            const int yIndex = 1;
+            
+            return coords[xIndex] > 0 && coords[xIndex] <= Length && 
+                   coords[yIndex] > 0 && coords[yIndex] <= Height;
         }
     }
 }
