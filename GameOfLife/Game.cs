@@ -18,7 +18,7 @@ namespace GameOfLife
                 for (var x = 1; x <= _grid.Length; x++)
                 {
                     var currentCellCoords = new[] {x, y};
-                    var neighbourCoords = GetNeighbourCoords(currentCellCoords);
+                    var neighbourCoords = _grid.GetNeighbourCoordsOf(currentCellCoords);
                     ApplyRules(currentCellCoords, neighbourCoords);
                 }
             }
@@ -27,28 +27,17 @@ namespace GameOfLife
         private void ApplyRules(int[] currentCellCoords, List<int[]> neighbourCoords)
         {
             var liveNeighbourCellCount = neighbourCoords.Count(coord => _grid.CellIsAliveAtCoords(coord));
-            if (liveNeighbourCellCount < 2)
+
+            if (_grid.CellIsAliveAtCoords(currentCellCoords))
             {
-                _grid.SetCellAliveAtCoords(currentCellCoords, false);
+                if (liveNeighbourCellCount < 2)
+                    _grid.SetCellAliveAtCoords(currentCellCoords, false);
             }
-        }
-
-        private List<int[]> GetNeighbourCoords(int[] cellCoords)
-        {
-            var adjacentCoords = new List<int[]>();
-
-            for (var y = -1; y <= 1; y++)
+            else
             {
-                for (var x = -1; x <= 1; x++)
-                {
-                    if (x == 0 && y == 0) continue;
-                    adjacentCoords.Add(new[]{cellCoords[0] + x, cellCoords[1] + y});
-                }
+                if(liveNeighbourCellCount == 3)
+                    _grid.SetCellAliveAtCoords(currentCellCoords, true);
             }
-
-            return adjacentCoords.Where(coord => coord[0] > 0 && coord[0] <= _grid.Length && coord[1] > 0 && coord[1] <= _grid.Height).ToList();
-            
-
         }
     }
 }
