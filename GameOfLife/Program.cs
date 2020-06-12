@@ -20,7 +20,7 @@ namespace GameOfLife
             SetUpGridStartingState();
             
             var game = new Game(_grid);
-            startSimulation(game);
+            StartSimulation(game);
         }
 
         private static int GetGridDimensionFromUser()
@@ -64,7 +64,7 @@ namespace GameOfLife
             return Console.ReadLine();
         }
 
-        private static void startSimulation(Game game)
+        private static void StartSimulation(Game game)
         {
             var cki = new ConsoleKeyInfo();
             Console.WriteLine();
