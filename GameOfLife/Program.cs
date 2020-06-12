@@ -5,6 +5,7 @@ namespace GameOfLife
 {
     class Program
     {
+        private static GameGrid _grid;
         private static void Main(string[] args)
         {
             Console.WriteLine(Output.Welcome);
@@ -15,10 +16,11 @@ namespace GameOfLife
             Console.Write(Output.PromptForGridHeight);
             var height = GetGridDimensionFromUser();
             
-            var grid = new GameGrid(length, height);
-            SetUpGridStartingState(grid);
+            _grid = new GameGrid(length, height);
+            SetUpGridStartingState();
             
-            var game = new Game(grid);
+            var game = new Game(_grid);
+            startSimulation(game);
         }
 
         private static int GetGridDimensionFromUser()
@@ -31,18 +33,18 @@ namespace GameOfLife
             return dimension;
         }
 
-        private static void SetUpGridStartingState(GameGrid grid)
+        private static void SetUpGridStartingState()
         {
             Console.WriteLine(Output.PromptForCoordsToToggle);
             Console.WriteLine();
             string nextInput;
             do
             {
-                nextInput = getNextCoordsFromUser(grid);
+                nextInput = getNextCoordsFromUser();
                 if (nextInput == "") continue;
-                if (InputValidator.TryParseCoords(nextInput, grid, out var cellCoordToToggle))
+                if (InputValidator.TryParseCoords(nextInput, _grid, out var cellCoordToToggle))
                 {
-                    grid.ToggleCellLifeStatusAtCoords(cellCoordToToggle);
+                    _grid.ToggleCellLifeStatusAtCoords(cellCoordToToggle);
                 }
                 else
                 {
@@ -52,14 +54,29 @@ namespace GameOfLife
             } while (nextInput != "");
         }
 
-        private static string getNextCoordsFromUser(GameGrid grid)
+        private static string getNextCoordsFromUser()
         {
             Console.WriteLine(Output.GridHeader);
             Console.WriteLine();
-            Console.WriteLine(Output.GridState(grid));
+            Console.WriteLine(Output.GridState(_grid));
             Console.Write(Output.PromptForNextCoord);
                 
             return Console.ReadLine();
+        }
+
+        private static void startSimulation(Game game)
+        {
+            var cki = new ConsoleKeyInfo();
+            Console.WriteLine();
+            Console.WriteLine(Output.StartingSimulation);
+            while (cki.Key != ConsoleKey.Escape)
+            {
+                Console.WriteLine(Output.GridHeader);
+                Console.WriteLine(Output.GridState(_grid));
+                Console.WriteLine(Output.PromptToProgressTime);
+                cki = Console.ReadKey();
+                game.ProgressTime();
+            }
         }
     }
 }

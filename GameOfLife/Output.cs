@@ -16,8 +16,10 @@ namespace GameOfLife
         public const string PromptForCoordsToToggle =
             "Enter coords of cells to activate/deactive in the format `x,y` within the world bounds.";
         public const string PromptForNextCoord =
-            "Enter next coord, or press enter to begin: ";
+            "Enter next coord of cell to toggle, or press return to begin simulation: ";
         public const string InvalidCoords = "Invalid coordinates! Correct format is x,y where x,y are positive integers within the grid bounds: ";
+        public const string StartingSimulation = "Starting simulation...";
+        public const string PromptToProgressTime = "Press return to progress time, or esc to exit: ";
 
         public static string GridState(GameGrid grid)
         {
