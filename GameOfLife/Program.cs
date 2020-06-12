@@ -40,7 +40,7 @@ namespace GameOfLife
             string nextInput;
             do
             {
-                nextInput = getNextCoordsFromUser();
+                nextInput = GetNextCoordsFromUser();
                 if (nextInput == "") continue;
                 if (InputValidator.TryParseCoords(nextInput, _grid, out var cellCoordToToggle))
                 {
@@ -54,7 +54,7 @@ namespace GameOfLife
             } while (nextInput != "");
         }
 
-        private static string getNextCoordsFromUser()
+        private static string GetNextCoordsFromUser()
         {
             Console.WriteLine(Output.GridHeader);
             Console.WriteLine();
