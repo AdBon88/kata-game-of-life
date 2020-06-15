@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GameOfLife
 {
-    class Program
+    internal static class Program
     {
         private static GameGrid _grid;
         private static void Main(string[] args)
@@ -42,7 +42,7 @@ namespace GameOfLife
             {
                 Console.WriteLine();
                 Console.WriteLine(Output.CurrentGridHeader);
-                Console.WriteLine(Output.GridState(_grid));
+                Console.WriteLine(Output.GridStateWithGridLines(_grid));
                 nextInput = GetNextCoordsFromUser();
                 if (nextInput == "") continue;
                 if (InputValidator.TryParseCoords(nextInput, _grid, out var cellCoordToToggle))
@@ -71,8 +71,7 @@ namespace GameOfLife
             Console.WriteLine(Output.StartingSimulation);
             while (cki.Key != ConsoleKey.Escape)
             {
-                Console.WriteLine(Output.CurrentGridHeader);
-                Console.WriteLine(Output.GridState(_grid));
+                Console.WriteLine(Output.GridStateWithoutGridLines(_grid));
                 Console.WriteLine();
                 Console.WriteLine(Output.PromptToProgressTime);
                 cki = Console.ReadKey();

@@ -8,7 +8,8 @@ namespace GameOfLife
     public static class Output
     {
         private const string LiveCell = " # ";
-        private const string DeadCell = " . ";
+        private const string DeadCell = "   ";
+        private const string GridLine = " . ";
 
         public const string Welcome = "Welcome to the Game of Life!";
         public const string PromptForGridLength = "Please specify the grid length (max 40): ";
@@ -23,10 +24,20 @@ namespace GameOfLife
         public const string StartingSimulation = "Starting simulation...";
         public const string PromptToProgressTime = "Press return to progress time, or esc to exit: ";
 
-        public static string GridState(GameGrid grid)
+        public static string GridStateWithoutGridLines(GameGrid grid)
+        {
+            var gridOutput = "";
+            for (var rowNo = 1; rowNo <= grid.Height; rowNo++)
+            {
+                gridOutput += AppendColumns(rowNo, DeadCell, grid);
+            }
+            return gridOutput;
+        }
+        
+        public static string GridStateWithGridLines(GameGrid grid)
         {
             var gridOutput = AppendColumnNumbers(grid.Length);
-            gridOutput += AppendRows(grid);
+            gridOutput += AppendRowsWithRowNumbers(grid);
 
             return gridOutput;
         }
@@ -42,13 +53,13 @@ namespace GameOfLife
             return columnHeader + "(x)\n";
         }
         
-        private static string AppendRows(GameGrid grid)
+        private static string AppendRowsWithRowNumbers(GameGrid grid)
         {
             var rows = "";
 
             for (var rowNo = 1; rowNo <= grid.Height; rowNo++)
             {
-                rows += AppendRowNumber(rowNo) + AppendColumns(rowNo, grid);
+                rows += AppendRowNumber(rowNo) + AppendColumns(rowNo, GridLine, grid);
             } 
             return rows +"(y)";
         }
@@ -59,12 +70,12 @@ namespace GameOfLife
             return RowNo < 10 ? $"  {RowNo} " : $" {RowNo} ";
         }
 
-        private static string AppendColumns(int rowNo, GameGrid grid)
+        private static string AppendColumns(int rowNo, string deadCell, GameGrid grid)
         {
             var rowContents = "";
             for (var colNo = 1; colNo <= grid.Length; colNo++)
             {
-                rowContents += grid.CellIsAliveAtCoords(new[] {colNo, rowNo}) ? LiveCell : DeadCell;
+                rowContents += grid.CellIsAliveAtCoords(new[] {colNo, rowNo}) ? LiveCell : deadCell;
             }
 
             return rowContents + "\n";
