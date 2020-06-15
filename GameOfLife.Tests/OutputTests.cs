@@ -9,9 +9,9 @@ namespace GameOfLife.Tests
         public void OutputsEmptyGridForNewGrid()
         {
             var grid = new GameGrid(3,3);
-            const string expected = "...\n" + 
-                                    "...\n" +
-                                    "...\n";
+            const string expected = " .  .  . \n" + 
+                                    " .  .  . \n" +
+                                    " .  .  . \n";
         
             var actual = Output.GridState(grid);
             Assert.Equal(expected, actual);
@@ -24,15 +24,15 @@ namespace GameOfLife.Tests
             grid.SetCellAliveAtCoords(new[]{2,1},true);
             grid.SetCellAliveAtCoords(new[]{2,2},true);
             
-            //.#.
-            //.#.
-            //...
+            // .  #  . 
+            // .  #  . 
+            // .  .  . 
             var game = new Game(grid);
             game.ProgressTime();
 
-            const string expected = "...\n" + 
-                                    "...\n" +
-                                    "...\n";
+            const string expected = " .  .  . \n" + 
+                                    " .  .  . \n" +
+                                    " .  .  . \n";
 
             var actual = Output.GridState(grid);
             
@@ -44,9 +44,9 @@ namespace GameOfLife.Tests
         {
             var grid = new GameGrid(3,3);
             
-            //##.
-            //.#.
-            //.##
+            // #  #  . 
+            // .  #  . 
+            // .  #  # 
             grid.SetCellAliveAtCoords(new[]{1,1},true);
             grid.SetCellAliveAtCoords(new[]{2,1},true);
             grid.SetCellAliveAtCoords(new[]{2,2},true);
@@ -56,9 +56,9 @@ namespace GameOfLife.Tests
             var game = new Game(grid);
             game.ProgressTime();
         
-            const string expected = "##.\n" + 
-                                    "...\n" +
-                                    ".##\n";
+            const string expected = " #  #  . \n" + 
+                                    " .  .  . \n" +
+                                    " .  #  # \n";
         
             var actual = Output.GridState(grid);
             
@@ -70,9 +70,9 @@ namespace GameOfLife.Tests
         {
             var grid = new GameGrid(3,3);
             
-            //##.
-            //##.
-            //...
+            // #  #  . 
+            // #  #  . 
+            // .  .  . 
             grid.SetCellAliveAtCoords(new[]{1,1},true);
             grid.SetCellAliveAtCoords(new[]{1,2},true);
             grid.SetCellAliveAtCoords(new[]{2,1},true);
@@ -80,9 +80,9 @@ namespace GameOfLife.Tests
             
             var game = new Game(grid);
             game.ProgressTime();
-            const string expected = "##.\n" + 
-                                    "##.\n" +
-                                    "...\n";
+            const string expected = " #  #  . \n" + 
+                                    " #  #  . \n" +
+                                    " .  .  . \n";
 
             var actual = Output.GridState(grid);
             
@@ -93,9 +93,9 @@ namespace GameOfLife.Tests
         {
             var grid = new GameGrid(3,3);
             
-            //##.
-            //#..
-            //...
+            // #  #  . 
+            // #  .  . 
+            // .  .  . 
             grid.SetCellAliveAtCoords(new[]{1,1},true);
             grid.SetCellAliveAtCoords(new[]{2,1},true);
             grid.SetCellAliveAtCoords(new[]{1,2},true);
@@ -103,9 +103,9 @@ namespace GameOfLife.Tests
             var game = new Game(grid);
             game.ProgressTime();
         
-            const string expected = "##.\n" + 
-                                    "##.\n" +
-                                    "...\n";
+            const string expected = " #  #  . \n" + 
+                                    " #  #  . \n" +
+                                    " .  .  . \n";
         
             var actual = Output.GridState(grid);
             
@@ -117,9 +117,9 @@ namespace GameOfLife.Tests
         {
             var grid = new GameGrid(3,3);
             
-            //##.
-            //##.
-            //#..
+            // #  #  . 
+            // #  #  . 
+            // #  .  . 
             grid.SetCellAliveAtCoords(new[]{1,1},true);
             grid.SetCellAliveAtCoords(new[]{2,1},true);
             grid.SetCellAliveAtCoords(new[]{1,2},true);
@@ -129,9 +129,9 @@ namespace GameOfLife.Tests
             var game = new Game(grid);
             game.ProgressTime();
         
-            const string expected = "##.\n" + 
-                                    "...\n" +
-                                    "##.\n";
+            const string expected = " #  #  . \n" + 
+                                    " .  .  . \n" +
+                                    " #  #  . \n";
         
             var actual = Output.GridState(grid);
             
@@ -143,9 +143,9 @@ namespace GameOfLife.Tests
         {
             var grid = new GameGrid(3,4);
             
-            //.#.
-            //#.#
-            //#.#
+            // .  #  . 
+            // #  .  # 
+            // #  .  # 
             grid.SetCellAliveAtCoords(new[]{2,1},true);
             grid.SetCellAliveAtCoords(new[]{1,2},true);
             grid.SetCellAliveAtCoords(new[]{3,2},true);
@@ -155,10 +155,10 @@ namespace GameOfLife.Tests
             var game = new Game(grid);
             game.ProgressTime();
         
-            const string expected = ".#.\n" + 
-                                    "#.#\n" +
-                                    "...\n" +
-                                    "...\n";
+            const string expected = " .  #  . \n" + 
+                                    " #  .  # \n" +
+                                    " .  .  . \n" +
+                                    " .  .  . \n";
         
             var actual = Output.GridState(grid);
             
@@ -170,16 +170,16 @@ namespace GameOfLife.Tests
         {
             var grid = new GameGrid(7,10);
             
-            //.......
-            //..###..
-            //..#.#..
-            //..#.#..
-            //...#...
-            //#.###..
-            //.#.#.#.
-            //...#..#
-            //..#.#..
-            //..#.#..
+            // .  .  .  .  .  .  . 
+            // .  .  #  #  #  .  . 
+            // .  .  #  .  #  .   .  
+            // .  .  #  .  #  .  . 
+            // .  .  .  #  .  .  . 
+            // #  .  #  #  #  .  . 
+            // .  #  .  #  .  #  . 
+            // .  .  .  #  .  .  # 
+            // .  .  #  .  #  .  . 
+            // .  .  #  .  #  .  . 
             
             grid.SetCellAliveAtCoords(new[]{3,2},true);
             grid.SetCellAliveAtCoords(new[]{4,2},true);
@@ -206,16 +206,16 @@ namespace GameOfLife.Tests
             var game = new Game(grid);
             game.ProgressTime();
         
-            const string expected = "...#...\n" + 
-                                    "..#.#..\n" +
-                                    ".##.##.\n" +
-                                    "..#.#..\n" +
-                                    ".#.....\n" +
-                                    ".#.....\n" +
-                                    ".#...#.\n" +
-                                    "...#.#.\n" +
-                                    "..#.##.\n" +
-                                    ".......\n";
+            const string expected = " .  .  .  #  .  .  . \n" + 
+                                    " .  .  #  .  #  .  . \n" +
+                                    " .  #  #  .  #  #  . \n" +
+                                    " .  .  #  .  #  .  . \n" +
+                                    " .  #  .  .  .  .  . \n" +
+                                    " .  #  .  .  .  .  . \n" +
+                                    " .  #  .  .  .  #  . \n" +
+                                    " .  .  .  #  .  #  . \n" +
+                                    " .  .  #  .  #  #  . \n" +
+                                    " .  .  .  .  .  .  . \n";
         
             var actual = Output.GridState(grid);
             

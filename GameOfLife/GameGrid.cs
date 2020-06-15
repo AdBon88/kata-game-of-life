@@ -9,7 +9,7 @@ namespace GameOfLife
     {
         public int Length { get; }
         public int Height { get; }
-        public Cell[,] Cells { get; } //TODO this is the result of TDD. near the beginning, it was the simplest code to pass the test. The cost/benefit just wasnt there to remove the array and use say, an iEnumerable and query with linq.
+        public Cell[,] Cells { get; } //TODO this is the result of TDD. near the beginning, it was the simplest code to pass the tests. The cost/benefit just wasnt there to remove the array and use say, an iEnumerable and query with linq.
         public GameGrid(int length, int height)
         {
             Length = length;

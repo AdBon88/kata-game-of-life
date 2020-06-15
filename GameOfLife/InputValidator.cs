@@ -7,7 +7,8 @@ namespace GameOfLife
     {
         public static bool TryParseGridDimension(string input, out int dimension)
         {
-            if (int.TryParse(input, out var output) && output > 0)
+            const int maxLength = 40;
+            if (int.TryParse(input, out var output) && output > 0 && output <= maxLength)
             {
                 dimension = output;
                 return true;

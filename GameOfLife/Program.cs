@@ -56,7 +56,7 @@ namespace GameOfLife
 
         private static string GetNextCoordsFromUser()
         {
-            Console.WriteLine(Output.GridHeader);
+            Console.WriteLine(Output.CurrentGridHeader);
             Console.WriteLine();
             Console.WriteLine(Output.GridState(_grid));
             Console.Write(Output.PromptForNextCoord);
@@ -71,7 +71,7 @@ namespace GameOfLife
             Console.WriteLine(Output.StartingSimulation);
             while (cki.Key != ConsoleKey.Escape)
             {
-                Console.WriteLine(Output.GridHeader);
+                Console.WriteLine(Output.CurrentGridHeader);
                 Console.WriteLine(Output.GridState(_grid));
                 Console.WriteLine(Output.PromptToProgressTime);
                 cki = Console.ReadKey();
