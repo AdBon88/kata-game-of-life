@@ -35,11 +35,14 @@ namespace GameOfLife
 
         private static void SetUpGridStartingState()
         {
-            Console.WriteLine(Output.PromptForCoordsToToggle);
-            Console.WriteLine();
             string nextInput;
+            Console.WriteLine();
+            Console.WriteLine(Output.PromptForCoordsToToggle);
             do
             {
+                Console.WriteLine();
+                Console.WriteLine(Output.CurrentGridHeader);
+                Console.WriteLine(Output.GridState(_grid));
                 nextInput = GetNextCoordsFromUser();
                 if (nextInput == "") continue;
                 if (InputValidator.TryParseCoords(nextInput, _grid, out var cellCoordToToggle))
@@ -48,6 +51,7 @@ namespace GameOfLife
                 }
                 else
                 {
+                    Console.WriteLine();
                     Console.Write(Output.InvalidCoords);
                 }
 
@@ -56,11 +60,7 @@ namespace GameOfLife
 
         private static string GetNextCoordsFromUser()
         {
-            Console.WriteLine(Output.CurrentGridHeader);
-            Console.WriteLine();
-            Console.WriteLine(Output.GridState(_grid));
             Console.Write(Output.PromptForNextCoord);
-                
             return Console.ReadLine();
         }
 
@@ -73,6 +73,7 @@ namespace GameOfLife
             {
                 Console.WriteLine(Output.CurrentGridHeader);
                 Console.WriteLine(Output.GridState(_grid));
+                Console.WriteLine();
                 Console.WriteLine(Output.PromptToProgressTime);
                 cki = Console.ReadKey();
                 game.ProgressTime();

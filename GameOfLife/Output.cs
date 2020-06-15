@@ -16,7 +16,7 @@ namespace GameOfLife
         public const string InvalidDimension = "Invalid input! Please enter a positive integer (max 40): ";
         public const string CurrentGridHeader = "Current grid: ";
         public const string PromptForCoordsToToggle =
-            "Enter coords of cells to activate/deactive in the format `x,y` within the world bounds.";
+            "Enter coords of cells to activate/deactive in the format `x,y` within the world bounds:";
         public const string PromptForNextCoord =
             "Enter next coord of cell to toggle, or press return to begin simulation: ";
         public const string InvalidCoords = "Invalid coordinates! Correct format is x,y where x,y are positive integers within the grid bounds: ";
