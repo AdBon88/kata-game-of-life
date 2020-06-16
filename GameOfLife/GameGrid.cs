@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace GameOfLife
 {
@@ -14,15 +12,7 @@ namespace GameOfLife
         {
             Length = length;
             Height = height;
-            
             Cells = new Cell[length,height];
-            for (var y = 0; y < height; y++)
-            {
-                for (var x = 0; x < length; x++)
-                {
-                    Cells[x,y] = new Cell();
-                }
-            }
         }
 
         public void SetCellAliveAtCoords(int[] coords, bool isAlive)
@@ -51,7 +41,7 @@ namespace GameOfLife
             {
                 for (var x = 0; x < Length; x++)
                 {
-                    gridCopy.Cells[x, y] = new Cell {isAlive = Cells[x, y].isAlive};
+                    gridCopy.Cells[x, y] = Cells[x, y];
                 }
             }
             return gridCopy;
