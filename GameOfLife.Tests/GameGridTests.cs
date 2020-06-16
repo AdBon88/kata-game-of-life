@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace GameOfLife.Tests
@@ -56,6 +57,46 @@ namespace GameOfLife.Tests
             Assert.True(grid.CellIsAliveAtCoords(new[]{2,2}));
             grid.ToggleCellLifeStatusAtCoords(new[] {2, 2});
             Assert.False(grid.CellIsAliveAtCoords(new[]{2,2}));
+        }
+
+        [Fact]
+        public void CanMakeDeepCopyOfGrid()
+        {
+            var grid = new GameGrid(2,2);
+            grid.SetCellAliveAtCoords(new[]{2,2}, true);
+            var gridCopy = grid.DeepCopy();
+           
+            var gridContent = new[] {grid.Cells[0, 0], grid.Cells[0, 1], grid.Cells[1, 0], grid.Cells[1, 1]};
+            var gridCopyContent = new[] {gridCopy.Cells[0, 0], gridCopy.Cells[0, 1], gridCopy.Cells[1, 0], gridCopy.Cells[1, 1]};
+            
+            Assert.Equal(gridContent, gridCopyContent);
+            Assert.NotEqual(grid, gridCopy);
+        }
+
+        [Fact]
+        public void ShouldFindNeighbourCoordsOfGivenCoords_WhereCoordIsOnBoundary()
+        {
+            var grid = new GameGrid(3,3);
+
+            var expected = new List<int[]> {new[]{2,2}, new []{3,2}, new []{2,3}};
+            var actual = grid.FindNeighbourCoordsOf(new[] {3, 3});
+
+            Assert.Equal(expected, actual);
+
+        }
+        
+        [Fact]
+        public void ShouldFindNeighbourCoordsOfGivenCoords_WhereGivenCoordsNotOnBoundary()
+        {
+            var grid = new GameGrid(3,3);
+
+            var expected = new List<int[]> {new[]{1,1}, new []{2,1}, new []{3,1}, new[]{1,2}, 
+                new[]{3,2}, new []{1,3}, new[]{2,3}, new[]{3,3}};
+            
+            var actual = grid.FindNeighbourCoordsOf(new[] {2, 2});
+            
+            Assert.Equal(expected, actual);
+
         }
     }
 }

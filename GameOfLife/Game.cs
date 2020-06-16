@@ -32,14 +32,24 @@ namespace GameOfLife
                 
             if (gridCopy.CellIsAliveAtCoords(currentCellCoords))
             {
-                if (liveNeighbourCellCount < 2 || liveNeighbourCellCount > 3)
-                    _grid.SetCellAliveAtCoords(currentCellCoords, false);
+                ApplyRulesForLiveCell(currentCellCoords, liveNeighbourCellCount);
             }
             else
             {
-                if(liveNeighbourCellCount == 3)
-                    _grid.SetCellAliveAtCoords(currentCellCoords, true);
+                ApplyRulesForDeadCell(currentCellCoords, liveNeighbourCellCount);
             }
+        }
+
+        private void ApplyRulesForDeadCell(int[] currentCellCoords, int liveNeighbourCellCount)
+        {
+            if (liveNeighbourCellCount == 3)
+                _grid.SetCellAliveAtCoords(currentCellCoords, true);
+        }
+
+        private void ApplyRulesForLiveCell(int[] currentCellCoords, int liveNeighbourCellCount)
+        {
+            if (liveNeighbourCellCount < 2 || liveNeighbourCellCount > 3)
+                _grid.SetCellAliveAtCoords(currentCellCoords, false);
         }
     }
 }
