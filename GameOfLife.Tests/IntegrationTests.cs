@@ -2,7 +2,7 @@ using Xunit;
 
 namespace GameOfLife.Tests
 {
-    public class GameTests
+    public class IntegrationTests
     
     {
      [Fact]
