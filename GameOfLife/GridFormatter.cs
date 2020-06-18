@@ -6,7 +6,7 @@ namespace GameOfLife
         private const string DeadCell = "   ";
         private const string GridLine = " . ";
 
-        public static string FormatWithoutGridLinesAndNumbers(Grid grid)
+        public static string OutputWithoutGridLinesAndNumbers(Grid grid)
         {
             var gridOutput = "";
             for (var rowNo = 1; rowNo <= grid.Height; rowNo++)
@@ -16,7 +16,7 @@ namespace GameOfLife
             return gridOutput;
         }
 
-        public static string FormatWithGridLinesAndNumbers(Grid grid)
+        public static string OutputWithGridLinesAndNumbers(Grid grid)
         {
             var gridOutput = AppendColumnNumbers(grid.Length);
             gridOutput += AppendRowsWithRowNumbers(grid);
@@ -27,10 +27,10 @@ namespace GameOfLife
         private static string AppendColumnNumbers(int gridLength)
         {
             var columnHeader = "    ";
-            for (var x = 1; x <= gridLength; x++)
+            for (var colNo = 1; colNo <= gridLength; colNo++)
             {
                 //less white space needed for single digits
-                columnHeader += x < 10 ? $" {x} " : $"{x} ";
+                columnHeader += colNo < 10 ? $" {colNo} " : $"{colNo} ";
             }
             return columnHeader + "(x)\n";
         }

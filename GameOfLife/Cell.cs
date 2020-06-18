@@ -4,6 +4,6 @@ namespace GameOfLife
 {
     public struct Cell
     {
-        public bool isAlive { get; set; }
+        public bool IsAlive { get; set; }
     }
 }

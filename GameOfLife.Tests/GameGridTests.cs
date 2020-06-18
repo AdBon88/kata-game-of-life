@@ -29,7 +29,7 @@ namespace GameOfLife.Tests
             var aCellIsAlive = false;         
             foreach (var cell in grid.Cells)
             {
-                aCellIsAlive = cell.isAlive;
+                aCellIsAlive = cell.IsAlive;
             }
             Assert.False(aCellIsAlive);
         }
@@ -61,9 +61,9 @@ namespace GameOfLife.Tests
         public void CanToggleCellAliveOrDeadAtGivenCoords()
         {
             var grid = new Grid(3,3);
-            grid.ToggleCellLifeStatusAtCoords(new[] {2, 2});
+            grid.ToggleCellAliveAtCoords(new[] {2, 2});
             Assert.True(grid.CellIsAliveAtCoords(new[]{2,2}));
-            grid.ToggleCellLifeStatusAtCoords(new[] {2, 2});
+            grid.ToggleCellAliveAtCoords(new[] {2, 2});
             Assert.False(grid.CellIsAliveAtCoords(new[]{2,2}));
         }
 

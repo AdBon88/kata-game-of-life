@@ -22,7 +22,7 @@ namespace GameOfLife.Tests
                                     " 10  .  .  .  .  .  .  .  .  .  . \n" + 
                                     "(y)";
             
-            var actual = GridFormatter.FormatWithGridLinesAndNumbers(grid);
+            var actual = GridFormatter.OutputWithGridLinesAndNumbers(grid);
             Assert.Equal(expected, actual);
         }
             
@@ -34,7 +34,7 @@ namespace GameOfLife.Tests
                                     "         \n" +
                                     "         \n";
         
-            var actual = GridFormatter.FormatWithoutGridLinesAndNumbers(grid);
+            var actual = GridFormatter.OutputWithoutGridLinesAndNumbers(grid);
             Assert.Equal(expected, actual);
         }
     }

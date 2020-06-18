@@ -17,20 +17,20 @@ namespace GameOfLife
 
         public void SetCellAliveAtCoords(int[] coords)
         {
-            Cells[coords[0] - 1, coords[1] - 1].isAlive = true;
+            Cells[coords[0] - 1, coords[1] - 1].IsAlive = true;
         }
         
         public void SetCellDeadAtCoords(int[] coords)
         {
-            Cells[coords[0] - 1, coords[1] - 1].isAlive = false;
+            Cells[coords[0] - 1, coords[1] - 1].IsAlive = false;
         }
 
         public bool CellIsAliveAtCoords(int[] coords)
         {
-            return Cells[coords[0] - 1, coords[1] - 1].isAlive;
+            return Cells[coords[0] - 1, coords[1] - 1].IsAlive;
         }
 
-        public void ToggleCellLifeStatusAtCoords(int[] coords)
+        public void ToggleCellAliveAtCoords(int[] coords)
         {
             if (CellIsAliveAtCoords(coords))
             {
@@ -72,10 +72,10 @@ namespace GameOfLife
                 }
             }
             
-            return adjacentCoords.Where(CoordsAreWithinBounds).ToList();
+            return adjacentCoords.Where(CoordsAreWithinGridBounds).ToList();
         }
         
-        private bool CoordsAreWithinBounds(int[] coords)
+        private bool CoordsAreWithinGridBounds(int[] coords)
         {
             const int xIndex = 0;
             const int yIndex = 1;

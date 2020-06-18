@@ -20,12 +20,12 @@ namespace GameOfLife
                 {
                     var currentCellCoords = new[] {x, y};
                     var neighbourCoords = _grid.FindNeighbourCoordsOf(currentCellCoords);
-                    ApplyRules(currentCellCoords, neighbourCoords, gridCopy);
+                    ApplyGameRules(currentCellCoords, neighbourCoords, gridCopy);
                 }
             }
         }
 
-        private void ApplyRules(int[] currentCellCoords, List<int[]> neighbourCoords, Grid gridCopy)
+        private void ApplyGameRules(int[] currentCellCoords, List<int[]> neighbourCoords, Grid gridCopy)
         {
             
             var liveNeighbourCellCount = neighbourCoords.Count(gridCopy.CellIsAliveAtCoords);
@@ -40,16 +40,16 @@ namespace GameOfLife
             }
         }
 
-        private void ApplyRulesForDeadCell(int[] currentCellCoords, int liveNeighbourCellCount)
-        {
-            if (liveNeighbourCellCount == 3)
-                _grid.SetCellAliveAtCoords(currentCellCoords);
-        }
-
         private void ApplyRulesForLiveCell(int[] currentCellCoords, int liveNeighbourCellCount)
         {
             if (liveNeighbourCellCount < 2 || liveNeighbourCellCount > 3)
                 _grid.SetCellDeadAtCoords(currentCellCoords);
+        }
+        
+        private void ApplyRulesForDeadCell(int[] currentCellCoords, int liveNeighbourCellCount)
+        {
+            if (liveNeighbourCellCount == 3)
+                _grid.SetCellAliveAtCoords(currentCellCoords);
         }
     }
 }

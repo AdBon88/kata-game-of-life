@@ -42,12 +42,12 @@ namespace GameOfLife
             {
                 Console.WriteLine();
                 Console.WriteLine(Output.CurrentGridHeader);
-                Console.WriteLine(GridFormatter.FormatWithGridLinesAndNumbers(_grid));
+                Console.WriteLine(GridFormatter.OutputWithGridLinesAndNumbers(_grid));
                 nextInput = GetNextCoordsFromUser();
                 if (nextInput == "") continue;
                 if (InputValidator.TryParseCoords(nextInput, _grid, out var cellCoordToToggle))
                 {
-                    _grid.ToggleCellLifeStatusAtCoords(cellCoordToToggle);
+                    _grid.ToggleCellAliveAtCoords(cellCoordToToggle);
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace GameOfLife
             Console.WriteLine(Output.StartingSimulation);
             while (cki.Key != ConsoleKey.Escape)
             {
-                Console.WriteLine(GridFormatter.FormatWithoutGridLinesAndNumbers(_grid));
+                Console.WriteLine(GridFormatter.OutputWithoutGridLinesAndNumbers(_grid));
                 Console.WriteLine();
                 Console.WriteLine(Output.PromptToProgressTime);
                 cki = Console.ReadKey();
