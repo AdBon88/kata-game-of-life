@@ -3,21 +3,26 @@ using System.Linq;
 
 namespace GameOfLife
 {
-    public class GameGrid
+    public class Grid
     {
         public int Length { get; }
         public int Height { get; }
-        public Cell[,] Cells { get; } //TODO this is the result of TDD. near the beginning, it was the simplest code to pass the tests. The cost/benefit just wasnt there to remove the array and use say, an iEnumerable and query with linq.
-        public GameGrid(int length, int height)
+        public Cell[,] Cells { get; }
+        public Grid(int length, int height)
         {
             Length = length;
             Height = height;
             Cells = new Cell[length,height];
         }
 
-        public void SetCellAliveAtCoords(int[] coords, bool isAlive)
+        public void SetCellAliveAtCoords(int[] coords)
         {
-            Cells[coords[0] - 1, coords[1] - 1].isAlive = isAlive;
+            Cells[coords[0] - 1, coords[1] - 1].isAlive = true;
+        }
+        
+        public void SetCellDeadAtCoords(int[] coords)
+        {
+            Cells[coords[0] - 1, coords[1] - 1].isAlive = false;
         }
 
         public bool CellIsAliveAtCoords(int[] coords)
@@ -27,16 +32,20 @@ namespace GameOfLife
 
         public void ToggleCellLifeStatusAtCoords(int[] coords)
         {
-            SetCellAliveAtCoords(coords, !CellIsAliveAtCoords(coords));
+            if (CellIsAliveAtCoords(coords))
+            {
+                SetCellDeadAtCoords(coords);
+            }
+            else
+            {
+                SetCellAliveAtCoords(coords);
+            }
         }
-
-        //TODO needed to be able to copy the method otherwise my Cell Transformer wouldn't work, becuase it loops through all cells,
-        // and mutates as it goes, causing subsequent rule applications to not work as they are working with a different grid state on each application.
-        public GameGrid DeepCopy()
+        
+        public Grid DeepCopy()
         {
-            var gridCopy = new GameGrid(Length, Height);
+            var gridCopy = new Grid(Length, Height);
             
-            //TODO did this loop because I didn't want the entire 2d cell array to have a setter. Otherwise other classes could break the implementation.
             for (var y = 0; y < Height; y++)
             {
                 for (var x = 0; x < Length; x++)
@@ -47,8 +56,6 @@ namespace GameOfLife
             return gridCopy;
         }
         
-        //TODO decided to put these here. Reason being I want to hide the implementation of how the indexes work from the other classes. Other classes just care about 
-        //providing coords and getting a results!
         public List<int[]> FindNeighbourCoordsOf(int[] cellCoords)
         {
             const int xIndex = 0;
@@ -67,8 +74,7 @@ namespace GameOfLife
             
             return adjacentCoords.Where(CoordsAreWithinBounds).ToList();
         }
-
-        //TODO previous loop will generate coords that are off the grid. Need to filter those out!
+        
         private bool CoordsAreWithinBounds(int[] coords)
         {
             const int xIndex = 0;

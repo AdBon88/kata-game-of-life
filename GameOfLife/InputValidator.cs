@@ -17,7 +17,7 @@ namespace GameOfLife
             return false;
         }
 
-        public static bool TryParseCoords(string input, GameGrid grid, out int[] coords)
+        public static bool TryParseCoords(string input, Grid grid, out int[] coords)
         {
             var stringCoords = input.Split(',');
            
@@ -31,7 +31,7 @@ namespace GameOfLife
             return false;
         }
 
-        private static bool coordsAreValid(int[]coords, GameGrid grid)
+        private static bool coordsAreValid(int[]coords, Grid grid)
         {
             var hasCountOfTwo = coords.Length == 2;
             var areGreaterThanZero = coords.All(i => i > 0);

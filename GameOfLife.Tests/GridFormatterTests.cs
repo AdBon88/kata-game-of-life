@@ -3,12 +3,12 @@ using Xunit;
 
 namespace GameOfLife.Tests
 {
-    public class OutputTests
+    public class GridFormatterTests
     {
         [Fact]
         public void outputsGridWithRowAndColumnNumbersAndGridLines()
         {
-            var grid = new GameGrid(10,10);
+            var grid = new Grid(10,10);
             const string expected = "     1  2  3  4  5  6  7  8  9 10 (x)\n" +
                                     "  1  .  .  .  .  .  .  .  .  .  . \n" +
                                     "  2  .  .  .  .  .  .  .  .  .  . \n" +
@@ -22,19 +22,19 @@ namespace GameOfLife.Tests
                                     " 10  .  .  .  .  .  .  .  .  .  . \n" + 
                                     "(y)";
             
-            var actual = Output.GridStateWithGridLines(grid);
+            var actual = GridFormatter.FormatWithGridLinesAndNumbers(grid);
             Assert.Equal(expected, actual);
         }
             
         [Fact]
         public void OutputsEmptyGridForNewGrid()
         {
-            var grid = new GameGrid(3,3);
+            var grid = new Grid(3,3);
             const string expected = "         \n" + 
                                     "         \n" +
                                     "         \n";
         
-            var actual = Output.GridStateWithoutGridLines(grid);
+            var actual = GridFormatter.FormatWithoutGridLinesAndNumbers(grid);
             Assert.Equal(expected, actual);
         }
     }

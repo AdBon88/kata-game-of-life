@@ -30,7 +30,7 @@ namespace GameOfLife.Tests
         [InlineData("3,3", new []{3,3})]
         public void ShouldParseValidCoords(string input, int[] expectedCoords)
         {
-            var grid = new GameGrid(3,3);
+            var grid = new Grid(3,3);
             Assert.True(InputValidator.TryParseCoords(input, grid, out var actualCoords));
             Assert.Equal(expectedCoords, actualCoords);
         }
@@ -45,7 +45,7 @@ namespace GameOfLife.Tests
         [InlineData("2")]
         public void CoordsLessThan1_OutOfBounds_NonNumbers_CoordCountNot2_AreInvalid(string input)
         {
-            var grid = new GameGrid(3,3);
+            var grid = new Grid(3,3);
            
             Assert.False( InputValidator.TryParseCoords(input, grid, out _) );
         }

@@ -5,7 +5,7 @@ namespace GameOfLife
 {
     internal static class Program
     {
-        private static GameGrid _grid;
+        private static Grid _grid;
         private static void Main(string[] args)
         {
             Console.WriteLine(Output.Welcome);
@@ -16,7 +16,7 @@ namespace GameOfLife
             Console.Write(Output.PromptForGridHeight);
             var height = GetGridDimensionFromUser();
             
-            _grid = new GameGrid(length, height);
+            _grid = new Grid(length, height);
             SetUpGridStartingState();
             
             var game = new Game(_grid);
@@ -42,7 +42,7 @@ namespace GameOfLife
             {
                 Console.WriteLine();
                 Console.WriteLine(Output.CurrentGridHeader);
-                Console.WriteLine(Output.GridStateWithGridLines(_grid));
+                Console.WriteLine(GridFormatter.FormatWithGridLinesAndNumbers(_grid));
                 nextInput = GetNextCoordsFromUser();
                 if (nextInput == "") continue;
                 if (InputValidator.TryParseCoords(nextInput, _grid, out var cellCoordToToggle))
@@ -71,7 +71,7 @@ namespace GameOfLife
             Console.WriteLine(Output.StartingSimulation);
             while (cki.Key != ConsoleKey.Escape)
             {
-                Console.WriteLine(Output.GridStateWithoutGridLines(_grid));
+                Console.WriteLine(GridFormatter.FormatWithoutGridLinesAndNumbers(_grid));
                 Console.WriteLine();
                 Console.WriteLine(Output.PromptToProgressTime);
                 cki = Console.ReadKey();

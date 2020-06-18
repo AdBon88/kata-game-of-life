@@ -5,8 +5,8 @@ namespace GameOfLife
 {
     public class Game
     {
-        private GameGrid _grid;
-        public Game(GameGrid grid)
+        private readonly Grid _grid;
+        public Game(Grid grid)
         {
             _grid = grid;
         }
@@ -25,7 +25,7 @@ namespace GameOfLife
             }
         }
 
-        private void ApplyRules(int[] currentCellCoords, List<int[]> neighbourCoords, GameGrid gridCopy)
+        private void ApplyRules(int[] currentCellCoords, List<int[]> neighbourCoords, Grid gridCopy)
         {
             
             var liveNeighbourCellCount = neighbourCoords.Count(gridCopy.CellIsAliveAtCoords);
@@ -43,13 +43,13 @@ namespace GameOfLife
         private void ApplyRulesForDeadCell(int[] currentCellCoords, int liveNeighbourCellCount)
         {
             if (liveNeighbourCellCount == 3)
-                _grid.SetCellAliveAtCoords(currentCellCoords, true);
+                _grid.SetCellAliveAtCoords(currentCellCoords);
         }
 
         private void ApplyRulesForLiveCell(int[] currentCellCoords, int liveNeighbourCellCount)
         {
             if (liveNeighbourCellCount < 2 || liveNeighbourCellCount > 3)
-                _grid.SetCellAliveAtCoords(currentCellCoords, false);
+                _grid.SetCellDeadAtCoords(currentCellCoords);
         }
     }
 }

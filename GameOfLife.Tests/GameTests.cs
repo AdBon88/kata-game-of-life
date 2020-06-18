@@ -8,9 +8,9 @@ namespace GameOfLife.Tests
      [Fact]
         private void LiveCellWithLessThan2NeighboursDies()
         {
-            var grid = new GameGrid(3,3);
-            grid.SetCellAliveAtCoords(new[]{2,1},true);
-            grid.SetCellAliveAtCoords(new[]{2,2},true);
+            var grid = new Grid(3,3);
+            grid.SetCellAliveAtCoords(new[]{2,1});
+            grid.SetCellAliveAtCoords(new[]{2,2});
             
             //    #    
             //    #    
@@ -22,7 +22,7 @@ namespace GameOfLife.Tests
                                     "         \n" +
                                     "         \n";
 
-            var actual = Output.GridStateWithoutGridLines(grid);
+            var actual = GridFormatter.FormatWithoutGridLinesAndNumbers(grid);
             
             Assert.Equal(expected, actual);
         }
@@ -30,16 +30,16 @@ namespace GameOfLife.Tests
         [Fact]
         private void LiveCellWithMoreThanThreeNeighboursDies()
         {
-            var grid = new GameGrid(3,3);
+            var grid = new Grid(3,3);
             
             // #  #    
             //    #    
             //    #  # 
-            grid.SetCellAliveAtCoords(new[]{1,1},true);
-            grid.SetCellAliveAtCoords(new[]{2,1},true);
-            grid.SetCellAliveAtCoords(new[]{2,2},true);
-            grid.SetCellAliveAtCoords(new[]{2,3},true);
-            grid.SetCellAliveAtCoords(new[]{3,3},true);
+            grid.SetCellAliveAtCoords(new[]{1,1});
+            grid.SetCellAliveAtCoords(new[]{2,1});
+            grid.SetCellAliveAtCoords(new[]{2,2});
+            grid.SetCellAliveAtCoords(new[]{2,3});
+            grid.SetCellAliveAtCoords(new[]{3,3});
             
             var game = new Game(grid);
             game.ProgressTime();
@@ -48,7 +48,7 @@ namespace GameOfLife.Tests
                                     "         \n" +
                                     "    #  # \n";
         
-            var actual = Output.GridStateWithoutGridLines(grid);
+            var actual = GridFormatter.FormatWithoutGridLinesAndNumbers(grid);
             
             Assert.Equal(expected, actual);
         }
@@ -56,15 +56,15 @@ namespace GameOfLife.Tests
         [Fact]
         private void LiveCellWithTwoOrThreeLivesNeighboursStaysAlive()
         {
-            var grid = new GameGrid(3,3);
+            var grid = new Grid(3,3);
             
             // #  #    
             // #  #    
             //         
-            grid.SetCellAliveAtCoords(new[]{1,1},true);
-            grid.SetCellAliveAtCoords(new[]{1,2},true);
-            grid.SetCellAliveAtCoords(new[]{2,1},true);
-            grid.SetCellAliveAtCoords(new[]{2,2},true);
+            grid.SetCellAliveAtCoords(new[]{1,1});
+            grid.SetCellAliveAtCoords(new[]{1,2});
+            grid.SetCellAliveAtCoords(new[]{2,1});
+            grid.SetCellAliveAtCoords(new[]{2,2});
             
             var game = new Game(grid);
             game.ProgressTime();
@@ -72,21 +72,21 @@ namespace GameOfLife.Tests
                                     " #  #    \n" +
                                     "         \n";
 
-            var actual = Output.GridStateWithoutGridLines(grid);
+            var actual = GridFormatter.FormatWithoutGridLinesAndNumbers(grid);
             
             Assert.Equal(expected, actual);
         }
         [Fact]
         private void DeadCellWithThreeLivesNeighboursBecomesAlive()
         {
-            var grid = new GameGrid(3,3);
+            var grid = new Grid(3,3);
             
             // #  #    
             // #       
             //         
-            grid.SetCellAliveAtCoords(new[]{1,1},true);
-            grid.SetCellAliveAtCoords(new[]{2,1},true);
-            grid.SetCellAliveAtCoords(new[]{1,2},true);
+            grid.SetCellAliveAtCoords(new[]{1,1});
+            grid.SetCellAliveAtCoords(new[]{2,1});
+            grid.SetCellAliveAtCoords(new[]{1,2});
             
             var game = new Game(grid);
             game.ProgressTime();
@@ -95,7 +95,7 @@ namespace GameOfLife.Tests
                                     " #  #    \n" +
                                     "         \n";
         
-            var actual = Output.GridStateWithoutGridLines(grid);
+            var actual = GridFormatter.FormatWithoutGridLinesAndNumbers(grid);
             
             Assert.Equal(expected, actual);
         }
@@ -103,18 +103,18 @@ namespace GameOfLife.Tests
         [Fact]
         private void CorrectOutputWhenApplyingAllRulesSimultaneously()
         {
-            var grid = new GameGrid(3,3);
+            var grid = new Grid(3,3);
             
             // #  #    
             // #  #    
             // #    #  
             
-            grid.SetCellAliveAtCoords(new[]{1,1},true);
-            grid.SetCellAliveAtCoords(new[]{2,1},true);
-            grid.SetCellAliveAtCoords(new[]{1,2},true);
-            grid.SetCellAliveAtCoords(new[]{2,2},true);
-            grid.SetCellAliveAtCoords(new[]{1,3},true);
-            grid.SetCellAliveAtCoords(new[]{3,3},true);
+            grid.SetCellAliveAtCoords(new[]{1,1});
+            grid.SetCellAliveAtCoords(new[]{2,1});
+            grid.SetCellAliveAtCoords(new[]{1,2});
+            grid.SetCellAliveAtCoords(new[]{2,2});
+            grid.SetCellAliveAtCoords(new[]{1,3});
+            grid.SetCellAliveAtCoords(new[]{3,3});
             
             var game = new Game(grid);
             game.ProgressTime();
@@ -123,7 +123,7 @@ namespace GameOfLife.Tests
                                     "       # \n" +
                                     " #       \n";
         
-            var actual = Output.GridStateWithoutGridLines(grid);
+            var actual = GridFormatter.FormatWithoutGridLinesAndNumbers(grid);
             
             Assert.Equal(expected, actual);
         }
@@ -131,7 +131,7 @@ namespace GameOfLife.Tests
         [Fact]
         private void CorrectOutputForXKCDRipJohnConwayPattern()
         {
-            var grid = new GameGrid(7,10);
+            var grid = new Grid(7,10);
             
             //                     
             //       #  #  #       
@@ -144,27 +144,27 @@ namespace GameOfLife.Tests
             //       #     #       
             //       #     #       
             
-            grid.SetCellAliveAtCoords(new[]{3,2},true);
-            grid.SetCellAliveAtCoords(new[]{4,2},true);
-            grid.SetCellAliveAtCoords(new[]{5,2},true);
-            grid.SetCellAliveAtCoords(new[]{3,3},true);
-            grid.SetCellAliveAtCoords(new[]{5,3},true);
-            grid.SetCellAliveAtCoords(new[]{3,4},true);
-            grid.SetCellAliveAtCoords(new[]{5,4},true);
-            grid.SetCellAliveAtCoords(new[]{4,5},true);
-            grid.SetCellAliveAtCoords(new[]{1,6},true);
-            grid.SetCellAliveAtCoords(new[]{3,6},true);
-            grid.SetCellAliveAtCoords(new[]{4,6},true);
-            grid.SetCellAliveAtCoords(new[]{5,6},true);
-            grid.SetCellAliveAtCoords(new[]{2,7},true);
-            grid.SetCellAliveAtCoords(new[]{4,7},true);
-            grid.SetCellAliveAtCoords(new[]{6,7},true);
-            grid.SetCellAliveAtCoords(new[]{4,8},true);
-            grid.SetCellAliveAtCoords(new[]{7,8},true);
-            grid.SetCellAliveAtCoords(new[]{3,9},true);
-            grid.SetCellAliveAtCoords(new[]{5,9},true);
-            grid.SetCellAliveAtCoords(new[]{3,10},true);
-            grid.SetCellAliveAtCoords(new[]{5,10},true);
+            grid.SetCellAliveAtCoords(new[]{3,2});
+            grid.SetCellAliveAtCoords(new[]{4,2});
+            grid.SetCellAliveAtCoords(new[]{5,2});
+            grid.SetCellAliveAtCoords(new[]{3,3});
+            grid.SetCellAliveAtCoords(new[]{5,3});
+            grid.SetCellAliveAtCoords(new[]{3,4});
+            grid.SetCellAliveAtCoords(new[]{5,4});
+            grid.SetCellAliveAtCoords(new[]{4,5});
+            grid.SetCellAliveAtCoords(new[]{1,6});
+            grid.SetCellAliveAtCoords(new[]{3,6});
+            grid.SetCellAliveAtCoords(new[]{4,6});
+            grid.SetCellAliveAtCoords(new[]{5,6});
+            grid.SetCellAliveAtCoords(new[]{2,7});
+            grid.SetCellAliveAtCoords(new[]{4,7});
+            grid.SetCellAliveAtCoords(new[]{6,7});
+            grid.SetCellAliveAtCoords(new[]{4,8});
+            grid.SetCellAliveAtCoords(new[]{7,8});
+            grid.SetCellAliveAtCoords(new[]{3,9});
+            grid.SetCellAliveAtCoords(new[]{5,9});
+            grid.SetCellAliveAtCoords(new[]{3,10});
+            grid.SetCellAliveAtCoords(new[]{5,10});
             
             var game = new Game(grid);
             game.ProgressTime();
@@ -180,7 +180,7 @@ namespace GameOfLife.Tests
                                     "       #     #  #    \n" +
                                     "                     \n";
         
-            var actual = Output.GridStateWithoutGridLines(grid);
+            var actual = GridFormatter.FormatWithoutGridLinesAndNumbers(grid);
             
             Assert.Equal(expected, actual);
         }
