@@ -19,8 +19,8 @@ namespace GameOfLife
                 for (var x = 1; x <= _grid.Length; x++)
                 {
                     var currentCellCoords = new[] {x, y};
-                    var neighbourCoords = _grid.FindNeighbourCoordsOf(currentCellCoords);
-                    ApplyGameRules(currentCellCoords, neighbourCoords, gridCopy);
+                    var neighbourCoordsList = _grid.FindNeighbourCoordsOf(currentCellCoords);
+                    ApplyGameRules(currentCellCoords, neighbourCoordsList, gridCopy);
                 }
             }
         }

@@ -60,7 +60,7 @@ namespace GameOfLife
         {
             const int xIndex = 0;
             const int yIndex = 1;
-            var adjacentCoords = new List<int[]>();
+            var neighbourCoordsList = new List<int[]>();
 
             for (var y = -1; y <= 1; y++)
             {
@@ -68,20 +68,27 @@ namespace GameOfLife
                 {
                     var isCurrentCellCoords = x == 0 && y == 0;
                     if (isCurrentCellCoords ) continue;
-                    adjacentCoords.Add(new[]{cellCoords[xIndex] + x, cellCoords[yIndex] + y});
+                    var currentNeighbourCoords = new[] {cellCoords[xIndex] + x, cellCoords[yIndex] + y};
+                    currentNeighbourCoords = WrapOutOfBoundsCoordinates(currentNeighbourCoords);
+                    neighbourCoordsList.Add(currentNeighbourCoords);
                 }
             }
             
-            return adjacentCoords.Where(CoordsAreWithinGridBounds).ToList();
+            return neighbourCoordsList;
         }
-        
-        private bool CoordsAreWithinGridBounds(int[] coords)
+
+        private int[] WrapOutOfBoundsCoordinates(int[] coords)
         {
-            const int xIndex = 0;
-            const int yIndex = 1;
-            
-            return coords[xIndex] > 0 && coords[xIndex] <= Length && 
-                   coords[yIndex] > 0 && coords[yIndex] <= Height;
+            if (coords[0] < 1)
+                coords[0] = Length;
+            if (coords[0] > Length)
+                coords[0] = 1;
+            if (coords[1] < 1) 
+                coords[1] = Height;
+            if (coords[1] > Height)
+                coords[1] = 1;
+
+            return coords;
         }
     }
 }

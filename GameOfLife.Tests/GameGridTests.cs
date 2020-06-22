@@ -85,7 +85,8 @@ namespace GameOfLife.Tests
         {
             var grid = new Grid(3,3);
 
-            var expected = new List<int[]> {new[]{2,2}, new []{3,2}, new []{2,3}};
+            var expected = new List<int[]> {new[]{2,2}, new []{3,2}, new []{1,2}, new[]{2,3}, new []{1,3}, 
+                new []{2,1}, new[]{3,1}, new[]{1,1}};
             var actual = grid.FindNeighbourCoordsOf(new[] {3, 3});
 
             Assert.Equal(expected, actual);
