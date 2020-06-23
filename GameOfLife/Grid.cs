@@ -8,6 +8,10 @@ namespace GameOfLife
         public int Length { get; }
         public int Height { get; }
         public Cell[,] Cells { get; }
+
+        private const int XIndex = 0;
+        private const int YIndex = 1;
+        
         public Grid(int length, int height)
         {
             Length = length;
@@ -17,17 +21,25 @@ namespace GameOfLife
 
         public void SetCellAliveAtCoords(int[] coords)
         {
-            Cells[coords[0] - 1, coords[1] - 1].IsAlive = true;
+            var x = coords[XIndex] - 1;
+            var y = coords[YIndex] - 1;
+            
+            Cells[x, y].IsAlive = true;
         }
         
         public void SetCellDeadAtCoords(int[] coords)
         {
-            Cells[coords[0] - 1, coords[1] - 1].IsAlive = false;
+            var x = coords[XIndex] - 1;
+            var y = coords[YIndex] - 1;
+            
+            Cells[x, y].IsAlive = false;
         }
 
         public bool CellIsAliveAtCoords(int[] coords)
         {
-            return Cells[coords[0] - 1, coords[1] - 1].IsAlive;
+            var x = coords[XIndex] - 1;
+            var y = coords[YIndex] - 1;
+            return Cells[x, y].IsAlive;
         }
 
         public void ToggleCellAliveAtCoords(int[] coords)
@@ -58,8 +70,6 @@ namespace GameOfLife
         
         public List<int[]> FindNeighbourCoordsOf(int[] cellCoords)
         {
-            const int xIndex = 0;
-            const int yIndex = 1;
             var neighbourCoordsList = new List<int[]>();
 
             for (var y = -1; y <= 1; y++)
@@ -68,9 +78,9 @@ namespace GameOfLife
                 {
                     var isCurrentCellCoords = x == 0 && y == 0;
                     if (isCurrentCellCoords ) continue;
-                    var currentNeighbourCoords = new[] {cellCoords[xIndex] + x, cellCoords[yIndex] + y};
-                    currentNeighbourCoords = WrapOutOfBoundsCoordinates(currentNeighbourCoords);
-                    neighbourCoordsList.Add(currentNeighbourCoords);
+                    var neighbourCoords = new[] {cellCoords[XIndex] + x, cellCoords[YIndex] + y};
+                    neighbourCoords = WrapOutOfBoundsCoordinates(neighbourCoords);
+                    neighbourCoordsList.Add(neighbourCoords);
                 }
             }
             
@@ -79,14 +89,25 @@ namespace GameOfLife
 
         private int[] WrapOutOfBoundsCoordinates(int[] coords)
         {
-            if (coords[0] < 1)
-                coords[0] = Length;
-            if (coords[0] > Length)
-                coords[0] = 1;
-            if (coords[1] < 1) 
-                coords[1] = Height;
-            if (coords[1] > Height)
-                coords[1] = 1;
+            const int min = 1;
+            
+            if (coords[XIndex] < min)
+            {
+                coords[XIndex] = Length;
+            }
+            else if (coords[XIndex] > Length)
+            {
+                coords[XIndex] = min;
+            }
+
+            if (coords[YIndex] < min)
+            {
+                coords[YIndex] = Height;
+            }
+            else if (coords[YIndex] > Height)
+            {
+                coords[YIndex] = min;
+            }
 
             return coords;
         }

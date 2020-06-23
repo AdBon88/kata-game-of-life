@@ -3,7 +3,7 @@ using Xunit;
 
 namespace GameOfLife.Tests
 {
-    public class GameGridTests
+    public class GridTests
     {
         [Fact]
         public void GeneratesGridOfSpecifiedLengthAndWidth()
